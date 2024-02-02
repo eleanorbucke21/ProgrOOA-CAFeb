@@ -37,9 +37,22 @@ public class ProgrOOACAFeb {
 
         } catch (IOException e) {
         }
+        {
+            //Assigning first name, surname, workload and student number
+            String[] parts = line.split("\n");
+            String firstName = parts[0];
+            String familyName = parts[1];
+            int workLoad = Integer.parseInt(parts[2]);
+            String studentNumber = parts[3];
         
+            // Print info to terminal
+            System.out.println("First Name: " + firstName); 
+            System.out.println("Family Name: " + familyName); 
+            System.out.println("Workload: " + workLoad);
+            System.out.println("Student Number: " + studentNumber);
         
-        
+        } catch (IOException e){
+            e.printStackTrace();}
     }
     
 }
