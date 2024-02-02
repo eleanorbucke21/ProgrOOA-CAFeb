@@ -25,34 +25,54 @@ public class ProgrOOACAFeb {
         List<String> studentInfo = new ArrayList<>();
 
         //Read student information from students.txt
-        try {
+       try {
             System.out.println("--- BufferedReader ---");
             BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\rubyb\\Documents\\NetBeansProjects\\ProgrOOA-CAFeb\\students.txt"));
             String line;
 
-            //print each line to terminal
+            // Read each record (three lines per record)
             while ((line = br.readLine()) != null) {
-                System.out.println(line);
+            // First line is the name
+            String name = line.trim();
+
+            // Split the name into first and last names
+            String[] nameParts = name.split("\\s+", 2);
+            String firstName = nameParts[0];
+            String familyName = nameParts.length > 1 ? nameParts[1] : "";
+
+            // Second line is the workload
+            int workLoad = Integer.parseInt(br.readLine().trim());
+
+            // Third line is the student number
+            String studentNumber = br.readLine().trim();
+
+            // Printing out name, student number, and workload
+            System.out.println("First Name: " + firstName);
+            System.out.println("Family Name: " + familyName);
+            System.out.println("Student Number: " + studentNumber);
+            System.out.println("Workload: " + workLoad);
+
+            // Skip the empty line between records
+            br.readLine();
             }
 
-        } catch (IOException e) {
-        }
-        {
-            //Assigning first name, surname, workload and student number
-            String[] parts = line.split("\n");
-            String firstName = parts[0];
-            String familyName = parts[1];
-            int workLoad = Integer.parseInt(parts[2]);
-            String studentNumber = parts[3];
-        
-            // Print info to terminal
-            System.out.println("First Name: " + firstName); 
-            System.out.println("Family Name: " + familyName); 
-            System.out.println("Workload: " + workLoad);
-            System.out.println("Student Number: " + studentNumber);
-        
-        } catch (IOException e){
-            e.printStackTrace();}
+            br.close();
+
+        } catch (IOException | NumberFormatException e) {
+        }     
     }
-    
-}
+        private static String getWorkLoadWords(int workLoad) {
+            if (workLoad == 1) {
+                return "Very Light";
+            } else if (workLoad == 2) {
+                return "Light";
+            } else if (workLoad >= 3 && workLoad <= 5) {
+                return "Part Time";
+            } else if (workLoad >= 6) {
+                return "Full Time";
+            } else {
+                return "Unknown Workload";
+            }
+
+        }
+    }
