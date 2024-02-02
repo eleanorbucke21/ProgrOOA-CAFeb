@@ -20,59 +20,77 @@ public class ProgrOOACAFeb {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
+
         //Student list
         List<String> studentInfo = new ArrayList<>();
 
         //Read student information from students.txt
-       try {
+        try {
             System.out.println("--- BufferedReader ---");
             BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\rubyb\\Documents\\NetBeansProjects\\ProgrOOA-CAFeb\\students.txt"));
             String line;
 
             // Read each record (three lines per record)
             while ((line = br.readLine()) != null) {
-            // First line is the name
-            String name = line.trim();
+                // First line is the name
+                String name = line.trim();
 
-            // Split the name into first and last names
-            String[] nameParts = name.split("\\s+", 2);
-            String firstName = nameParts[0];
-            String familyName = nameParts.length > 1 ? nameParts[1] : "";
+                // Split the name into first and last names
+                String[] nameParts = name.split("\\s+", 2);
+                String firstName = nameParts[0];
+                String familyName = nameParts.length > 1 ? nameParts[1] : "";
 
-            // Second line is the workload
-            int workLoad = Integer.parseInt(br.readLine().trim());
+                // Validate firstName
+                if (!isValidName(firstName)) {
+                    System.out.println("Invalid characters in the first name");
+                    // Handle this error case as needed
+                    continue; // Skip to the next record
+                }
 
-            // Third line is the student number
-            String studentNumber = br.readLine().trim();
+                // Validate familyName
+                if (!isValidName(familyName)) {
+                    System.out.println("Invalid characters in the family name");
+                    // Handle this error case as needed
+                    continue; // Skip to the next record
+                }
 
-            // Printing out name, student number, and workload
-            System.out.println("First Name: " + firstName);
-            System.out.println("Family Name: " + familyName);
-            System.out.println("Student Number: " + studentNumber);
-            System.out.println("Workload: " + getWorkLoadWords(workLoad));
+                // Second line is the workload
+                int workLoad = Integer.parseInt(br.readLine().trim());
 
-            // Skip the empty line between records
-            br.readLine();
+                // Third line is the student number
+                String studentNumber = br.readLine().trim();
+
+                // Printing out name, student number, and workload
+                System.out.println("First Name: " + firstName);
+                System.out.println("Family Name: " + familyName);
+                System.out.println("Student Number: " + studentNumber);
+                System.out.println("Workload: " + getWorkLoadWords(workLoad));
+
+                // Skip the empty line between records
+                br.readLine();
             }
 
             br.close();
 
         } catch (IOException | NumberFormatException e) {
-        }     
-    }
-        private static String getWorkLoadWords(int workLoad) {
-            if (workLoad == 1) {
-                return "Very Light";
-            } else if (workLoad == 2) {
-                return "Light";
-            } else if (workLoad >= 3 && workLoad <= 5) {
-                return "Part Time";
-            } else if (workLoad >= 6) {
-                return "Full Time";
-            } else {
-                return "Unknown Workload";
-            }
-
         }
     }
+
+    private static String getWorkLoadWords(int workLoad) {
+        if (workLoad == 1) {
+            return "Very Light";
+        } else if (workLoad == 2) {
+            return "Light";
+        } else if (workLoad >= 3 && workLoad <= 5) {
+            return "Part Time";
+        } else if (workLoad >= 6) {
+            return "Full Time";
+        } else {
+            return "Unknown Workload";
+        }
+
+    }
+      private static boolean isValidName(String name) {
+        return name.matches("[a-zA-Z]+");
+    }
+}
