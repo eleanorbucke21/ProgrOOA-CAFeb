@@ -93,4 +93,31 @@ public class ProgrOOACAFeb {
       private static boolean isValidName(String name) {
         return name.matches("[a-zA-Z]+");
     }
+      
+    private static boolean isValidStudentNumber(String studentNumber) {
+        if (studentNumber.length() != 6) {
+            System.out.println("Incorrect length");
+            return false;
+        } else {
+            String firstTwoDigits = studentNumber.substring(0, 2);
+            String middleTwoLetters = studentNumber.substring(2, 4);
+            String lastTwoDigits = studentNumber.substring(4);
+
+            if (!firstTwoDigits.matches("[0-9]+")) {
+                System.out.println("First two characters are not numbers");
+                return false;
+            } else if (!middleTwoLetters.matches("[a-zA-Z]+")) {
+                System.out.println("Middle two characters must be letters");
+                return false;
+            } else if (!lastTwoDigits.matches("[0-9]+")) {
+                System.out.println("Last two characters are not numbers");
+                return false;
+            } else {
+                System.out.println("Valid student number!");
+                return true;
+            }
+        }
+    }
+      
+ 
 }
