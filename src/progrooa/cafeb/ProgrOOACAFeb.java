@@ -5,13 +5,17 @@
 package progrooa.cafeb;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
+ * GitHub Repo://github.com/eleanorbucke21/ProgrOOA-CAFeb
+ * 
  * @author rubyb
  */
 public class ProgrOOACAFeb {
@@ -25,9 +29,11 @@ public class ProgrOOACAFeb {
         List<String> studentInfo = new ArrayList<>();
 
         //Read student information from students.txt
-        try {
-            System.out.println("--- BufferedReader ---");
+        try (            
             BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\rubyb\\Documents\\NetBeansProjects\\ProgrOOA-CAFeb\\students.txt"));
+            BufferedWriter bw = new BufferedWriter(new FileWriter("C:\\Users\\rubyb\\Documents\\NetBeansProjects\\ProgrOOA-CAFeb\\status.txt"))){
+
+            System.out.println("--- BufferedReader ---");
             String line;
 
             // Read each record (three lines per record)
@@ -60,18 +66,15 @@ public class ProgrOOACAFeb {
                 // Third line is the student number
                 String studentNumber = br.readLine().trim();
 
-                // Printing out name, student number, and workload
-                System.out.println("First Name: " + firstName);
-                System.out.println("Family Name: " + familyName);
-                System.out.println("Student Number: " + studentNumber);
-                System.out.println("Workload: " + getWorkLoadWords(workLoad));
+                // Writing valid information to status.txt
+                bw.write(studentNumber + " - " + familyName + "\n");
+                bw.write(workLoad + "\n");
+                bw.newLine();
 
-                // Skip the empty line between records
-                br.readLine();
             }
 
             br.close();
-
+        
         } catch (IOException | NumberFormatException e) {
         }
     }
@@ -119,5 +122,4 @@ public class ProgrOOACAFeb {
         }
     }
       
- 
 }
