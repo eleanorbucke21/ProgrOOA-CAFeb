@@ -38,6 +38,11 @@ public class ProgrOOACAFeb {
 
             // Read each record (three lines per record)
             while ((line = br.readLine()) != null) {
+                // Skip empty lines
+                if (line.trim().isEmpty()) {
+                    continue;
+                }
+                
                 // First line is the name
                 String name = line.trim();
 
@@ -46,18 +51,10 @@ public class ProgrOOACAFeb {
                 String firstName = nameParts[0];
                 String familyName = nameParts.length > 1 ? nameParts[1] : "";
 
-                // Validate firstName
-                if (!isValidName(firstName)) {
-                    System.out.println("Invalid characters in the first name");
-                    // Handle this error case as needed
-                    continue; // Skip to the next record
-                }
-
-                // Validate familyName
-                if (!isValidName(familyName)) {
-                    System.out.println("Invalid characters in the family name");
-                    // Handle this error case as needed
-                    continue; // Skip to the next record
+                // Validate First Name and Surname 
+                if (!isValidName(firstName) || !isValidName(familyName)) {
+                    System.out.println("Invalid characters in the name");
+                    continue;
                 }
 
                 // Second line is the workload
@@ -94,8 +91,12 @@ public class ProgrOOACAFeb {
 
     }
       private static boolean isValidName(String name) {
-        return name.matches("[a-zA-Z]+");
+    if (!name.matches("[a-zA-Z]+")) {
+        System.out.println("Invalid characters in the name: " + name);
+        return false;
     }
+    return true;
+}
       
     private static boolean isValidStudentNumber(String studentNumber) {
         if (studentNumber.length() != 6) {
