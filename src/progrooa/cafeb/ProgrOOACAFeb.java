@@ -50,7 +50,7 @@ public class ProgrOOACAFeb {
             System.out.println("First Name: " + firstName);
             System.out.println("Family Name: " + familyName);
             System.out.println("Student Number: " + studentNumber);
-            System.out.println("Workload: " + workLoad);
+            System.out.println("Workload: " + getWorkLoadWords(workLoad));
 
             // Skip the empty line between records
             br.readLine();
